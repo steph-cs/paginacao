@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <h1 class="d-flex justify-content-center">usuarios</h1>
+    <div class="w-50 mx-auto">
+        <table class="table  table-striped">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}" ></td>
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.email}" ></td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+
+    <div th:if="${users.totalPages > 0}">
+        <ul class="pagination justify-content-center">
+            <li th:if="!${searchTerm}"
+            th:each="pageNumber : ${pageNumbers}" 
+            class="page-item" 
+            th:classappend="${pageNumber==users.number + 1} ? active">
+                <a class="page-link" 
+                th:href="@{/customers/(page=${pageNumber-1})}"
+                th:text=${pageNumber}></a>
+            </li>
+            <li th:if="${searchTerm}"
+            th:each="pageNumber : ${pageNumbers}" 
+            class="page-item" 
+            th:classappend="${pageNumber==users.number + 1} ? active">
+                <a class="page-link" 
+                th:href="@{/customers/(page=${pageNumber-1})}"
+                th:text=${pageNumber}></a>
+            </li>
+        </ul>
+    </div>
+    
+</body>
+</html>
